@@ -1,0 +1,43 @@
+/*    */ package org.apache.tools.ant.types.resources.comparators;
+/*    */ 
+/*    */ import org.apache.tools.ant.types.Resource;
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ public class Name
+/*    */   extends ResourceComparator
+/*    */ {
+/*    */   protected int resourceCompare(Resource foo, Resource bar) {
+/* 35 */     return foo.getName().compareTo(bar.getName());
+/*    */   }
+/*    */ }
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/apache/tools/ant/types/resources/comparators/Name.class
+ * Java compiler version: 8 (52.0)
+ * JD-Core Version:       1.1.3
+ */

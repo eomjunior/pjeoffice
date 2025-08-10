@@ -1,0 +1,32 @@
+.fieldname {
+	color: #E9571C;
+}
+
+.fieldvalue {
+	color: #6C757D;
+}
+
+.backlineon {
+	border-radius: 5px;
+}
+
+
+ h1 {
+	font-weight: 300;
+}
+
+h2 {
+	font-weight: 300;
+}
+
+h3 {
+	font-weight: 300;
+}
+
+h4 {
+	font-weight: 300;
+}
+
+h5 {
+	font-weight: 450;
+}

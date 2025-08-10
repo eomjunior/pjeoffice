@@ -1,0 +1,39 @@
+package org.bouncycastle.asn1;
+
+import java.io.IOException;
+
+public class BERSequence extends ASN1Sequence {
+  public BERSequence() {}
+  
+  public BERSequence(ASN1Encodable paramASN1Encodable) {
+    super(paramASN1Encodable);
+  }
+  
+  public BERSequence(ASN1EncodableVector paramASN1EncodableVector) {
+    super(paramASN1EncodableVector);
+  }
+  
+  public BERSequence(ASN1Encodable[] paramArrayOfASN1Encodable) {
+    super(paramArrayOfASN1Encodable);
+  }
+  
+  int encodedLength() throws IOException {
+    int i = this.elements.length;
+    int j = 0;
+    for (byte b = 0; b < i; b++) {
+      ASN1Primitive aSN1Primitive = this.elements[b].toASN1Primitive();
+      j += aSN1Primitive.encodedLength();
+    } 
+    return 2 + j + 2;
+  }
+  
+  void encode(ASN1OutputStream paramASN1OutputStream, boolean paramBoolean) throws IOException {
+    paramASN1OutputStream.writeEncodedIndef(paramBoolean, 48, this.elements);
+  }
+}
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/bouncycastle/asn1/BERSequence.class
+ * Java compiler version: 5 (49.0)
+ * JD-Core Version:       1.1.3
+ */

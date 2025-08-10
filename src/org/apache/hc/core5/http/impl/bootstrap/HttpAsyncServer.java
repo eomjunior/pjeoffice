@@ -1,0 +1,143 @@
+/*     */ package org.apache.hc.core5.http.impl.bootstrap;
+/*     */ 
+/*     */ import java.net.InetSocketAddress;
+/*     */ import java.net.SocketAddress;
+/*     */ import java.util.concurrent.Future;
+/*     */ import org.apache.hc.core5.annotation.Internal;
+/*     */ import org.apache.hc.core5.concurrent.FutureCallback;
+/*     */ import org.apache.hc.core5.function.Callback;
+/*     */ import org.apache.hc.core5.function.Decorator;
+/*     */ import org.apache.hc.core5.http.URIScheme;
+/*     */ import org.apache.hc.core5.http.nio.command.ShutdownCommand;
+/*     */ import org.apache.hc.core5.reactor.EndpointParameters;
+/*     */ import org.apache.hc.core5.reactor.IOEventHandlerFactory;
+/*     */ import org.apache.hc.core5.reactor.IOReactorConfig;
+/*     */ import org.apache.hc.core5.reactor.IOSession;
+/*     */ import org.apache.hc.core5.reactor.IOSessionListener;
+/*     */ import org.apache.hc.core5.reactor.ListenerEndpoint;
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ public class HttpAsyncServer
+/*     */   extends AsyncServer
+/*     */ {
+/*     */   private final String canonicalName;
+/*     */   
+/*     */   @Internal
+/*     */   public HttpAsyncServer(IOEventHandlerFactory eventHandlerFactory, IOReactorConfig ioReactorConfig, Decorator<IOSession> ioSessionDecorator, Callback<Exception> exceptionCallback, IOSessionListener sessionListener, String canonicalName) {
+/*  68 */     super(eventHandlerFactory, ioReactorConfig, ioSessionDecorator, exceptionCallback, sessionListener, ShutdownCommand.GRACEFUL_NORMAL_CALLBACK);
+/*     */     
+/*  70 */     this.canonicalName = canonicalName;
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   @Internal
+/*     */   public HttpAsyncServer(IOEventHandlerFactory eventHandlerFactory, IOReactorConfig ioReactorConfig, Decorator<IOSession> ioSessionDecorator, Callback<Exception> exceptionCallback, IOSessionListener sessionListener) {
+/*  83 */     this(eventHandlerFactory, ioReactorConfig, ioSessionDecorator, exceptionCallback, sessionListener, null);
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   public Future<ListenerEndpoint> listen(SocketAddress address, URIScheme scheme, Object attachment, FutureCallback<ListenerEndpoint> callback) {
+/*  94 */     InetSocketAddress inetSocketAddress = (InetSocketAddress)address;
+/*     */ 
+/*     */ 
+/*     */     
+/*  98 */     EndpointParameters parameters = new EndpointParameters(scheme.id, (this.canonicalName != null) ? this.canonicalName : "localhost", inetSocketAddress.getPort(), attachment);
+/*     */     
+/* 100 */     return listen(address, parameters, callback);
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   public Future<ListenerEndpoint> listen(SocketAddress address, URIScheme scheme, FutureCallback<ListenerEndpoint> callback) {
+/* 110 */     return listen(address, scheme, null, callback);
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   public Future<ListenerEndpoint> listen(SocketAddress address, URIScheme scheme) {
+/* 117 */     return listen(address, scheme, null, null);
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   @Deprecated
+/*     */   public Future<ListenerEndpoint> listen(SocketAddress address, FutureCallback<ListenerEndpoint> callback) {
+/* 126 */     return super.listen(address, callback);
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   @Deprecated
+/*     */   public Future<ListenerEndpoint> listen(SocketAddress address) {
+/* 135 */     return super.listen(address);
+/*     */   }
+/*     */ }
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/apache/hc/core5/http/impl/bootstrap/HttpAsyncServer.class
+ * Java compiler version: 8 (52.0)
+ * JD-Core Version:       1.1.3
+ */

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/pjeOffice/welcome?file=bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/pjeOffice/welcome?file=bootstrap/docs.css" rel="stylesheet">
+    <script src="/pjeOffice/welcome?file=bootstrap/bootstrap.bundle.min.js"></script>
+    
+    <link href="/pjeOffice/welcome?file=css/global.css" rel="stylesheet">	
+	<link href="/pjeOffice/welcome?file=log/log.css" rel="stylesheet">
+	
+   	<script src="/pjeOffice/welcome?file=pjeoffice-pro.js"></script>
+   	<script src="/pjeOffice/welcome?file=log/log.js"></script>
+  </head>
+  <body onload="Logger.setup();">
+  	<div style="height: 18px;"></div>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+	      <span style="font-size: larger; ">Eventos</span>
+	      
+	      <div style="float: right;">	      	 
+             <div class="form-switch ms-5">
+               <img src="/pjeOffice/welcome?file=log/copy.png" style="cursor: pointer;" id="copy" onclick="Logger.copy()" class="ms-5"/>
+               <label class="form-check-label mr-5" id="labelcopy" for="copy" style="cursor: pointer;"  onclick="Logger.copy()" >Copiar texto</label>               
+               <input class="form-check-input mt-2 ms-5" type="checkbox" id="autoscroll" checked  onclick="Logger.setAutoScroll()">
+               <label class="form-check-label" for="autoscroll">Rolagem automática</label>
+               <button id="btnClear" class="btn ms-5" onclick="Logger.clear()">
+                 LIMPAR
+               </button>
+             </div>
+          </div>
+        </div>
+        <div class="card-body">
+   	      <textarea class="form-control" id="log" readonly></textarea>			    	
+	    </div>
+      </div>    
+    </div>
+  </body>
+</html>

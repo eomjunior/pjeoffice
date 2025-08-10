@@ -1,0 +1,27 @@
+# O caracter hashtag (#) no início da linha indica um comentário.
+# As linhas vazias serão desconsideradas.
+# As linhas não vazias serão "trinadas" (String::trim)
+# As linhas não vazias serão automaticamente convertidas para minusculas
+# As linhas usam o padrão GLOB UNIX, ou seja, NÃO são expressões regulares de forma que:
+# a) Caracter ? casa com um caracter desconhecido. Exemplo: '?anto' casa com 'santo', 'tanto' ou 'manto'
+# b) Caracter * casa com qualquer número de caracteres desconhecidos. Exemplo: 'Auto*' casa com 'Automóvel' ou com 'Autonomia'
+# c) Caracteres entre colchetes [ e ] casam com um grupo de caracteres. Exemplo: '[ST]anto' casa com 'Santo' ou 'Tanto' mas não com 'Manto'  
+# d) Caracter \ pode ser usado para escape. Exemplo: 'Auto\*' só casará com 'Auto*'
+# e) Os endereços devem seguir a sintaxe do cabeçalho Origin, qual seja:
+#	        <scheme>://<hostname>{:<port>}
+#    onde:
+#           Delimitação {} indica item opcional
+#			Delimitação <> é onde deve ser aplicada expressão GLOB
+
+https://*.jus.br
+https://*.mp.br
+https://*.gov.br
+https://*.def.br
+
+https://*.jus.br:443
+https://*.mp.br:443
+https://*.gov.br:443
+https://*.def.br:443
+
+https://127.0.0.1:8801
+http://127.0.0.1:8800

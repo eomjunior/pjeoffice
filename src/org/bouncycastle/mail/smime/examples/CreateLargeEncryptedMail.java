@@ -1,0 +1,58 @@
+package org.bouncycastle.mail.smime.examples;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import org.bouncycastle.cms.CMSAlgorithm;
+import org.bouncycastle.cms.RecipientInfoGenerator;
+import org.bouncycastle.cms.jcajce.JceCMSContentEncryptorBuilder;
+import org.bouncycastle.cms.jcajce.JceKeyTransRecipientInfoGenerator;
+import org.bouncycastle.mail.smime.SMIMEEnvelopedGenerator;
+
+public class CreateLargeEncryptedMail {
+  public static void main(String[] paramArrayOfString) throws Exception {
+    if (paramArrayOfString.length != 3) {
+      System.err.println("usage: CreateLargeEncryptedMail pkcs12Keystore password inputFile");
+      System.exit(0);
+    } 
+    KeyStore keyStore = KeyStore.getInstance("PKCS12", "BC");
+    String str = ExampleUtils.findKeyAlias(keyStore, paramArrayOfString[0], paramArrayOfString[1].toCharArray());
+    Certificate[] arrayOfCertificate = keyStore.getCertificateChain(str);
+    SMIMEEnvelopedGenerator sMIMEEnvelopedGenerator = new SMIMEEnvelopedGenerator();
+    sMIMEEnvelopedGenerator.addRecipientInfoGenerator((RecipientInfoGenerator)(new JceKeyTransRecipientInfoGenerator((X509Certificate)arrayOfCertificate[0])).setProvider("BC"));
+    MimeBodyPart mimeBodyPart1 = new MimeBodyPart();
+    mimeBodyPart1.setDataHandler(new DataHandler((DataSource)new FileDataSource(new File(paramArrayOfString[2]))));
+    mimeBodyPart1.setHeader("Content-Type", "application/octet-stream");
+    mimeBodyPart1.setHeader("Content-Transfer-Encoding", "binary");
+    MimeBodyPart mimeBodyPart2 = sMIMEEnvelopedGenerator.generate(mimeBodyPart1, (new JceCMSContentEncryptorBuilder(CMSAlgorithm.RC2_CBC)).setProvider("BC").build());
+    Properties properties = System.getProperties();
+    Session session = Session.getDefaultInstance(properties, null);
+    InternetAddress internetAddress1 = new InternetAddress("\"Eric H. Echidna\"<eric@bouncycastle.org>");
+    InternetAddress internetAddress2 = new InternetAddress("example@bouncycastle.org");
+    MimeMessage mimeMessage = new MimeMessage(session);
+    mimeMessage.setFrom((Address)internetAddress1);
+    mimeMessage.setRecipient(Message.RecipientType.TO, (Address)internetAddress2);
+    mimeMessage.setSubject("example encrypted message");
+    mimeMessage.setContent(mimeBodyPart2.getContent(), mimeBodyPart2.getContentType());
+    mimeMessage.saveChanges();
+    mimeMessage.writeTo(new FileOutputStream("encrypted.message"));
+  }
+}
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/bouncycastle/mail/smime/examples/CreateLargeEncryptedMail.class
+ * Java compiler version: 5 (49.0)
+ * JD-Core Version:       1.1.3
+ */

@@ -1,0 +1,66 @@
+package org.bouncycastle.cms;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Set;
+import org.bouncycastle.asn1.BEROctetString;
+import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.DERSet;
+import org.bouncycastle.asn1.DLSet;
+import org.bouncycastle.asn1.cms.AttributeTable;
+import org.bouncycastle.asn1.cms.AuthEnvelopedData;
+import org.bouncycastle.asn1.cms.CMSObjectIdentifiers;
+import org.bouncycastle.asn1.cms.ContentInfo;
+import org.bouncycastle.asn1.cms.EncryptedContentInfo;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.bouncycastle.operator.GenericKey;
+import org.bouncycastle.operator.OutputAEADEncryptor;
+
+public class CMSAuthEnvelopedDataGenerator extends CMSAuthEnvelopedGenerator {
+  private CMSAuthEnvelopedData doGenerate(CMSTypedData paramCMSTypedData, OutputAEADEncryptor paramOutputAEADEncryptor) throws CMSException {
+    ASN1EncodableVector aSN1EncodableVector = new ASN1EncodableVector();
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    DERSet dERSet = null;
+    try {
+      OutputStream outputStream = paramOutputAEADEncryptor.getOutputStream(byteArrayOutputStream);
+      paramCMSTypedData.write(outputStream);
+      if (this.authAttrsGenerator != null) {
+        AttributeTable attributeTable = this.authAttrsGenerator.getAttributes(new HashMap<Object, Object>());
+        dERSet = new DERSet(attributeTable.toASN1EncodableVector());
+        paramOutputAEADEncryptor.getAADStream().write(dERSet.getEncoded("DER"));
+      } 
+      outputStream.close();
+    } catch (IOException iOException) {
+      throw new CMSException("unable to process authenticated content: " + iOException.getMessage(), iOException);
+    } 
+    byte[] arrayOfByte = byteArrayOutputStream.toByteArray();
+    AlgorithmIdentifier algorithmIdentifier = paramOutputAEADEncryptor.getAlgorithmIdentifier();
+    BEROctetString bEROctetString = new BEROctetString(arrayOfByte);
+    GenericKey genericKey = paramOutputAEADEncryptor.getKey();
+    for (RecipientInfoGenerator recipientInfoGenerator : this.recipientInfoGenerators)
+      aSN1EncodableVector.add((ASN1Encodable)recipientInfoGenerator.generate(genericKey)); 
+    EncryptedContentInfo encryptedContentInfo = new EncryptedContentInfo(paramCMSTypedData.getContentType(), algorithmIdentifier, (ASN1OctetString)bEROctetString);
+    DLSet dLSet = null;
+    if (this.unauthAttrsGenerator != null) {
+      AttributeTable attributeTable = this.unauthAttrsGenerator.getAttributes(new HashMap<Object, Object>());
+      dLSet = new DLSet(attributeTable.toASN1EncodableVector());
+    } 
+    ContentInfo contentInfo = new ContentInfo(CMSObjectIdentifiers.authEnvelopedData, (ASN1Encodable)new AuthEnvelopedData(this.originatorInfo, (ASN1Set)new DERSet(aSN1EncodableVector), encryptedContentInfo, (ASN1Set)dERSet, (ASN1OctetString)new DEROctetString(paramOutputAEADEncryptor.getMAC()), (ASN1Set)dLSet));
+    return new CMSAuthEnvelopedData(contentInfo);
+  }
+  
+  public CMSAuthEnvelopedData generate(CMSTypedData paramCMSTypedData, OutputAEADEncryptor paramOutputAEADEncryptor) throws CMSException {
+    return doGenerate(paramCMSTypedData, paramOutputAEADEncryptor);
+  }
+}
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/bouncycastle/cms/CMSAuthEnvelopedDataGenerator.class
+ * Java compiler version: 5 (49.0)
+ * JD-Core Version:       1.1.3
+ */

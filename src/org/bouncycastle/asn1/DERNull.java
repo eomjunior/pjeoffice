@@ -1,0 +1,27 @@
+package org.bouncycastle.asn1;
+
+import java.io.IOException;
+
+public class DERNull extends ASN1Null {
+  public static final DERNull INSTANCE = new DERNull();
+  
+  private static final byte[] zeroBytes = new byte[0];
+  
+  boolean isConstructed() {
+    return false;
+  }
+  
+  int encodedLength() {
+    return 2;
+  }
+  
+  void encode(ASN1OutputStream paramASN1OutputStream, boolean paramBoolean) throws IOException {
+    paramASN1OutputStream.writeEncoded(paramBoolean, 5, zeroBytes);
+  }
+}
+
+
+/* Location:              /home/oscar/Downloads/pjeoffice-pro-v2.5.16u-linux_x64/pjeoffice-pro/pjeoffice-pro.jar!/org/bouncycastle/asn1/DERNull.class
+ * Java compiler version: 5 (49.0)
+ * JD-Core Version:       1.1.3
+ */

@@ -1,0 +1,9 @@
+{
+  "parametros_configurados":true,
+  "versao_pje_office":"1.0.27",
+  "versao_pje_office_minima_recomendada":"1.0.27",
+  "versao_pje_office_minima_obrigatoria":"1.0.26",
+  "versao_pje_office_mensagem_bloqueio":"Acesso via certificado digital não permitido porque a versão do PJeOffice instalada é inferior à mínima obrigatória. \n\nATENÇÃO: A versão 1.0.26 do PJe Office é exigida como obrigatória para acesso ao PJe.",
+  "versao_pje_office_mensagem_aviso":"A versão do PJeOffice instalada é inferior à mínima recomendada e à atual. \n\nATENÇÃO: A versão 1.0.26 do PJe Office é exigida como obrigatória para acesso ao PJe. A versão 1.0.27 é recomendada.",
+  "versao_pje_office_mensagem_recomendacao":"A versão do PJeOffice instalada é inferior à recomendada. \n\nATENÇÃO: A versão 1.0.26 do PJe Office é exigida como obrigatória para acesso ao PJe."
+}

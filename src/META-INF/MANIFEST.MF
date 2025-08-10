@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: pjeoffice-pro
+Build-Jdk: 1.8.0_382
+Main-Class: br.jus.cnj.pje.office.imp.PjeOfficePROUser
+SplashScreen-Image: images/pje-icon-splash.gif
+

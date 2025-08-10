@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/pjeOffice/welcome?file=bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/pjeOffice/welcome?file=bootstrap/docs.css" rel="stylesheet">
+    <script src="/pjeOffice/welcome?file=bootstrap/bootstrap.bundle.min.js"></script>
+
+	<link href="/pjeOffice/welcome?file=css/global.css" rel="stylesheet">	
+	<link href="/pjeOffice/welcome?file=test/test.css" rel="stylesheet">
+
+	<script src="/pjeOffice/welcome?file=pjeoffice-pro.js"></script>
+	<script src="/pjeOffice/welcome?file=test/test.js"></script>
+</head>
+
+<body>
+	<div style="height: 18px;"></div>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header">
+				<h4>Teste de Dispositivos</h4>
+			</div>
+			<div class="card-body">
+				<p>
+				Neste ambiente você poderá realizar um teste completo do assinador PJeOffice <sup>Pro</sup> com um único clique para certificar-se 
+				do seu correto funcionamento. O botão 'Testar' seguinte dará início à comunicação entre o seu navegador e o assinador, 
+				realizará uma assinatura simplificada e exibirá os principais dados presentes no seu certificado digital 
+				armazenado em seu dispositivo.
+				</p>
+				<p>
+				O sucesso do teste depende de configuração prévia do seu certificado junto ao assinador. No menu <em>'Configuração de certificado'</em> 
+				proceda com os passos segundo o modelo do seu certificado (A1 ou A3) até que o mesmo seja reconhecido e listado pelo PJeOffice <sup>Pro</sup>. 
+				Vale destacar que para certificados do tipo A3 você precisará antecipadamente instalar no seu computador o <em>driver</em> de dispositivo 
+				compatível com seu modelo de token ou leitora. Este <em>driver</em> é comumente disponibilizado nos sites de autoridades certificadoras ou 
+				dos fabricantes dos respectivos modelos de dispositivos.
+				</p>
+				<div class="row">
+					<div class="col-12" style="text-align: center;">
+						<button id="btnTest" class="btn" onclick="Tester.test()">
+							TESTAR
+						</button>
+						<div id="result" style="display: none; margin-top: 15px" class="success">
+							<span id="success" style="font-size: xx-large; margin-left: 50px">
+								Teste concluído com sucesso! <img src="/pjeOffice/welcome?file=test/success.png" width="25px"/>
+							</span>
+							<span id="fail" style="font-size:xx-large; margin-left: 50px">
+								Teste concluído com falha! <img src="/pjeOffice/welcome?file=test/fail.png" width="25px"/>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="certUser" style="display: none">
+					<div class="col-12">
+						<div class="card mt-4">
+							<div class="card-header">
+								<span style="font-size: larger;">Certificado Digital</span>
+								<div style="float: right; font-size: x-small;">
+									<span class="fieldname">Serial:</span>
+									<span class="fieldvalue" id="serial"></span>
+								</div>
+							</div>
+							<div class="card-body">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-12">
+												<p class="mx-3 mb-2 ms-1">
+													<span style="font-size: larger;">Dados Pessoais</span>
+												</p>
+												<ul class="list-group list-group-flush ms-3">
+													
+													<!--  PESSOA FÍSICA -->
+												
+													<li class="list-group-item" id="pf.name.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Nome:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.name" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item backlineon" id="pf.cpf.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">CPF:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.cpf" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item" id="pf.rg.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">RG:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.rg" class="fieldvalue"></span>&nbsp;-&nbsp;<span id="pf.issuing.agency.rg" class="fieldvalue"></span>&nbsp;/&nbsp;<span id="pf.issuing.agency.rg.uf" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item backlineon" id="pf.birth.date.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Data de aniversário:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.birth.date" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item" id="pf.nis.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">NIS:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.nis" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item backlineon" id="pf.cei.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">CEI:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.cei" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													
+													<li class="list-group-item" id="pf.email.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Email:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.email" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													
+													<!--  PESSOA JURÍDICA -->
+													
+													<li class="list-group-item backlineon" id="pj.business.name.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Nome empresarial:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.business.name" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													
+													<li class="list-group-item" id="pj.cnpj.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">CNPJ:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.cnpj" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													
+													<li class="list-group-item backlineon" id="pj.birth.date.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Aniversário empresarial:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.birth.date" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>													
+													
+													<li class="list-group-item" id="pj.nis.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">NIS:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.nis" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													
+													<li class="list-group-item backlineon" id="pj.cei.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">CEI:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.cei" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													
+													<li class="list-group-item" id="pj.responsible.name.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Nome do responsável:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.responsible.name" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>													
+													
+													<li class="list-group-item backlineon" id="pj.responsible.cpf.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">CPF do responsável:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.responsible.cpf" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+
+													<li class="list-group-item" id="pj.rg.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">RG do responsável:</span>
+															</div>
+															<div class="col-8">
+																<span id="pj.rg" class="fieldvalue"></span>&nbsp;-&nbsp;<span id="pj.issuing.agency.rg" class="fieldvalue"></span>&nbsp;/&nbsp;<span id="pj.issuing.agency.rg.uf" class="fieldvalue"></span>															
+															</div>
+														</div>
+													</li>													
+													
+												</ul>
+											</div>
+										</div>
+
+										<div class="row" id="electoral.view">
+											<div class="col-12">
+												<p class="mx-3 mt-4 mb-2 ms-1">
+													<span style="font-size: larger;">Dados Eleitorais</span>
+												</p>
+												<ul class="list-group list-group-flush ms-3">
+													<li class="list-group-item" id="pf.electoral.document.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Título:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.electoral.document" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item backlineon" id="pf.electoral.document.section.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Seção:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.electoral.document.section" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item" id="pf.electoral.document.zone.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Zona:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.electoral.document.zone" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item backlineon" id="pf.electoral.document.city.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Cidade:</span>
+															</div>
+															<div class="col-8">
+																<span id="pf.electoral.document.city" class="fieldvalue"></span>&nbsp;/&nbsp;<span id="pf.electoral.document.uf" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<p class="mx-3 mt-4 mb-2 ms-1">
+													<span style="font-size: larger;">Emitido Por</span>
+												</p>
+												<ul class="list-group list-group-flush ms-3">
+													<li class="list-group-item" id="issuer.cn.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Nome comum (CN):</span>
+															</div>
+															<div class="col-8">
+																<span id="issuer.cn" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item backlineon" id="issuer.ou.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Unidade Organizacional (OU):</span>
+															</div>
+															<div class="col-8">
+																<span id="issuer.ou" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item backlineon" id="issuer.o.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Organização (O):</span>
+															</div>
+															<div class="col-8">
+																<span id="issuer.o" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item" id="issuer.c.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Nome do país (C):</span>
+															</div>
+															<div class="col-8">
+																<span id="issuer.c" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>													
+												</ul>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<p class="mx-3 mt-4 mb-2 ms-1">
+													<span style="font-size: larger;">Data de Validade</span>
+												</p>
+												<ul class="list-group list-group-flush ms-3">
+													<li class="list-group-item" id="before.date.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Emitido em:</span>
+															</div>
+															<div class="col-8">
+																<span id="before.date" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item backlineon" id="after.date.view">
+														<div class="row">
+															<div class="col-4">
+																<span class="fieldname">Expira em:</span>
+															</div>
+															<div class="col-8">
+																<span id="after.date" class="fieldvalue"></span>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+						
+						<div class="row" id="chainList" style="display: none;">
+							<div class="col-12">
+								<div class="card mt-4">
+									<div class="card-header">
+										<span style="font-size: larger;">Cadeia de Certificados</span>
+									</div>	
+									<div class="card-body" id="chainBody">
+									  
+									</div>
+								</div>
+							</div>
+						</div>   
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="height: 18px;"></div>
+</body>
+</html>

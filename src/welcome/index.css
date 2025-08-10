@@ -1,0 +1,32 @@
+.nav-link {
+	color: #080808;     
+}
+
+.nav-link:hover {
+	color: #E9571C;
+}
+
+iframe{		    
+    position: fixed;
+    border: none;
+    top: 145px; right: 0;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: calc(100vh - 165px);
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #D9D9D9;
+   color: white;
+   height: 2%;
+   text-align: center;
+   font-size: xx-small;
+}
+
+.license {
+  color: #D9D9D9;
+}

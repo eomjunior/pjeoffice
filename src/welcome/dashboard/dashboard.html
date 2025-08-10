@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/pjeOffice/welcome?file=bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/pjeOffice/welcome?file=bootstrap/docs.css" rel="stylesheet">
+    <script src="/pjeOffice/welcome?file=bootstrap/bootstrap.bundle.min.js"></script>
+
+	<link href="/pjeOffice/welcome?file=css/global.css" rel="stylesheet">
+	<link href="/pjeOffice/welcome?file=dashboard/dashboard.css" rel="stylesheet">
+
+	<script src="/pjeOffice/welcome?file=pjeoffice-pro.js"></script>
+	<script src="/pjeOffice/welcome?file=dashboard/dashboard.js"></script>
+</head>
+<body onload="Dashboard.setup()">
+	<div style="height: 18px"></div>
+	<div class="container-fluid">
+		<div class="row gap-2">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<h4>Assinador</h4>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Nome:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue">PJeOffice<sup>Pro</sup></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Versão:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="versao"></span><span class="fieldvalue" id="modelo"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Diretório de configurações:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="home.config"></span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<h4>Sistema Operacional</h4>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Nome:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="os.name"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Versão:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="os.version"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Arquitetura:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="os.native.arch"></span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p></p>
+		<div class="row gap-2">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<h4>Java</h4>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Nome:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="java.vm.name"></span>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Fornecedor:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="java.vendor"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Versão:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="java.runtime.version"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Arquitetura / Modelo:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="os.arch"></span> / <span class="fieldvalue" id="sun.arch.data.model"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Diretório Instalação:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="java.home"></span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<h4>Usuário</h4>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Nome:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="user.name"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Home:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="user.home"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Idioma:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="user.language"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Timezone:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="user.timezone"></span>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item backlineon">
+								<div class="row">
+									<div class="col-4">
+										<span class="fieldname">Diretório de execução:</span>
+									</div>
+									<div class="col-8">
+										<span class="fieldvalue" id="user.dir"></span>
+									</div>
+								</div>
+							</li>							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div style="height: 30px;"></div>
+</body>
+</html>
